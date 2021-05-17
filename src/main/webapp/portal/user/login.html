@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="ThemeBucket">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<link rel="shortcut icon" href="#" type="image/png">
+
+<title>智数-登录</title>
+<meta name="Keywords"
+	content="智数,智数平台,采集,爬虫,抓取,数据采集,数据下载,数据抓取,网页爬虫,网页抓取,整站抓取,整站下载,智能抓取,智能爬虫" />
+<meta name="Description"
+	content="智数,智数平台,爬虫,抓取,采集,数据采集,数据下载,数据抓取,新一代智能云采集平台,智能大数据采集平台,新一代云采集平台." />
+
+<link href="/web/res/css/style.css" rel="stylesheet">
+<link href="/web/res/css/style-responsive.css" rel="stylesheet">
+<link href="/assets/plugins/iCheck/skins/square/square.css"
+	rel="stylesheet">
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+    <script src="/web/res/js/html5shiv.js"></script>
+    <script src="/web/res/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="login-body">
+
+	<div class="container">
+
+		<form class="form-signin" onSubmit="return false;">
+			<div class="form-signin-heading text-center">
+				<h1 class="sign-title">登录</h1>
+				<img src="/web/res/images/logo-black.png" width=240 height=100
+					alt="" />
+			</div>
+			<div class="login-wrap">
+				<input type="text" id="login_user_name" class="form-control"
+					placeholder="手机号/邮箱" autofocus> <input type="password"
+					id="login_password" class="form-control" placeholder="密码">
+
+				<button id="login_btn" class="btn btn-lg btn-login btn-block">
+					<i class="fa fa-check"></i>
+				</button>
+
+				<div class="registration">
+					还没有账号？ <a class="" href="registration.html"> 注册 </a>
+				</div>
+				<label class="checkbox"> <input type="checkbox"
+					value="remember-me"> 记住我 <span class="pull-right"> <a
+						href="javascript:void(0)" onclick="showModal()"> 忘记密码?</a>
+
+				</span>
+				</label>
+
+			</div>
+
+			<!-- Modal -->
+			<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+				tabindex="-1" id="myModal" class="modal fade">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">&times;</button>
+							<h4 class="modal-title">忘记密码？</h4>
+						</div>
+						<div class="modal-body">
+
+							<div class="row" id="fetDiv">
+
+								<div class="col-md-12 icheck">
+									<div class="square">
+										<div class="radio ">
+
+											<input type="radio" name="job-radio" rindex="mobile" checked> <label>手机</label>
+
+										</div>
+									</div>
+									<div class="square">
+
+										<div class="radio ">
+											<input type="radio" name="job-radio" rindex="email" > <label>邮箱</label>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12" id="phoneDiv">
+									<p>请输入您的手机号码，重置密码.</p>
+									<input type="text" id="mobile" name="mobile" placeholder="mobile"
+										autocomplete="off" class="form-control placeholder-no-fix">
+
+								</div>
+								<div class="col-md-12" id="emailDiv">
+									<p>请输入您的邮箱，重置密码.</p>
+									<input type="text"  id="email" name="email" placeholder="邮箱"
+										autocomplete="off" class="form-control placeholder-no-fix">
+
+								</div>
+							</div>
+
+						<div id="register" style="display: none" class="form-horizontal"   onSubmit="return false;">
+								
+									<div class="form-group">
+										<label for="username" class="col-sm-3" style="font-size:14px;">验证码</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" id="rcode" placeholder="" >
+											
+										</div>
+									</div>	
+									<div class="form-group">
+										<label for="username" class="col-sm-3" style="font-size:14px;">新密码</label> 
+										<div class="col-sm-8">
+											<input type="password" class="form-control" id="reg_pwd" placeholder="" >
+										</div>
+									</div>	
+									<div class="form-group">
+										<label for="username"  class="col-sm-3" style="font-size:14px;">确认密码</label> 
+										<div class="col-sm-8">
+											<input type="password" class="form-control" id="reg_pwd2" placeholder="" >
+										</div>
+									</div>	
+									
+									
+							</div>
+
+
+						</div>
+						<div class="modal-footer">
+							<button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+							<button class="btn btn-primary" id="nextBtn" type="button">下一步</button>
+							<button class="btn btn-primary" id="okBtn" type="button">确认</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- modal -->
+
+		</form>
+
+	</div>
+
+
+
+	<!-- Placed js at the end of the document so the pages load faster -->
+
+	<!-- Placed js at the end of the document so the pages load faster -->
+	<script src="/web/res/js/jquery-1.10.2.min.js"></script>
+	<script src="/web/res/js/bootstrap.min.js"></script>
+	<script src="/web/res/js/modernizr.min.js"></script>
+	<script src='/assets/js/js.cookie.js'></script>
+	<script src='/assets/js/uuid.js'></script>
+	<script src='/assets/js/md5.js'></script>
+	<script src="/assets/plugins/layer/layer.js"></script>
+	<script src="/assets/plugins/iCheck/jquery.icheck.js"></script>
+	<script>
+	
+		function showModal(){
+			$("#emailDiv").hide();
+			$("#okBtn").hide();
+			$("#register").hide();
+			$("#email").val("");
+			$("#mobile").val("");
+			$("#rcode").val("");
+			$("#fetDiv").show();
+			$("#nextBtn").show();
+			$("#okBtn").hide();
+			$('#myModal').modal("show");
+		}
+		$(function() {
+			
+			
+			
+			
+			
+			
+			$('.square input').iCheck({
+				checkboxClass : 'icheckbox_square',
+				radioClass : 'iradio_square',
+				uncheck : true,
+				increaseArea : '20%' // optional
+			});
+			$('input[name="job-radio"]').on('ifChecked', function(event){
+				if ($(this).attr("checked",true)) {//这里就可以判断当前是否被选择了
+			        var rindex = $(this).attr("rindex");
+					if(rindex=='mobile'){
+						$("#phoneDiv").show();
+						$("#emailDiv").hide();
+					}else{
+						$("#emailDiv").show();
+						$("#phoneDiv").hide();
+					}
+				   
+			    }
+			});
+			
+			$("#nextBtn").click(function(){
+				$("#fetDiv").hide();
+				$("#register").show();
+				$("#nextBtn").hide();
+				$("#okBtn").show();
+		    });
+			
+			$('#login_btn').on('click',function() {
+						var username = $("#login_user_name").val();
+						var password = $("#login_password").val();
+
+						if (username == '' || username == null
+								|| username == undefined) {
+							layer.msg("手机号或者邮箱")
+							return false;
+						}
+						if (password == '' || password == null
+								|| password == undefined) {
+							layer.msg("请输入密码")
+							return false;
+						}
+						var pwd = md5(password);
+						$.post("/action/user/u/login", {
+							"username" : username,
+							"password" : pwd,
+
+						}, function(data) {
+							if (data.code == 200) {
+
+								//$("#loginLi").html("<a  href='javascript:void(0);' class='dropdown-toggle' data-toggle='dropdown'  style='font-size:16px;'>"+data.data.user_name+"</a><ul class='dropdown-menu' style='margin-top:-1px;'> <li><a href='#'><i class='fa fa-user'></i>  退出</a></li>  </ul>");
+								window.location.href = "/";
+							} else {
+								layer.msg(data.msg);
+							}
+						});
+					});
+
+		})
+	</script>
+</body>
+</html>

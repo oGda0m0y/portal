@@ -1,0 +1,60 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	<description>Spring公共配置</description>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<!-- 标准配置 -->
+				<value>classpath:dataSource.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="springContextHolder" class="com.zhishu.portal.util.SpringContextHolder"
+		lazy-init="false" />
+	<aop:aspectj-autoproxy />
+	<context:component-scan base-package="com.zhishu.portal.*">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${dao.driverClassName}" />
+		<property name="username" value="${dao.username}" />
+		<property name="password" value="${dao.password}" />
+		<property name="url" value="${dao.url}" />
+		<property name="maxActive"><value>20</value></property>  
+        <property name="initialSize"><value>1</value></property>  
+        <property name="maxWait"><value>60000</value></property>  
+        <property name="maxIdle"><value>20</value></property>  
+        <property name="minIdle"><value>3</value></property>  
+        <property name="removeAbandoned"><value>true</value></property>  
+        <property name="removeAbandonedTimeout"><value>180</value></property>  
+        <property name="testWhileIdle"><value>true</value></property> <!-- 打开检查,用异步线程evict进行检查 -->  
+    	<property name="testOnBorrow"><value>false</value></property>  
+    	<property name="testOnReturn"><value>false</value></property>  
+   	 	<property name="validationQuery"><value>select sysdate() from dual</value></property>  
+    	<property name="validationQueryTimeout"><value>1</value></property>  
+    	<property name="timeBetweenEvictionRunsMillis"><value>30000</value></property>  
+    	<property name="numTestsPerEvictionRun"><value>20</value></property> 
+	</bean>
+
+	<bean id="portalDao" class="org.nutz.dao.impl.NutDao">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	
+</beans>

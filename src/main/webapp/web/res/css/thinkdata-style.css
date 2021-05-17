@@ -1,0 +1,15 @@
+.__thinkdata_highlight {
+    outline: #61DA67 solid 2px;
+    box-shadow: 0 0 0 4px #61DA67;
+}
+
+.__thinkdata_highlight2 {
+    outline: #ff5252 solid 2px;
+    box-shadow: 0 0 0 4px #ff5252;
+}
+
+.__thinkdata_hover {
+    outline: #4f7da0 solid 2px;
+    box-shadow: 0 0 0 4px #4f7da0;
+    background: rgba(95, 162, 214, 0.67);
+}

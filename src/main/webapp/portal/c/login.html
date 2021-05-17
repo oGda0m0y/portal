@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>智数-VIP登陆</title>
+<meta name="Keywords"
+	content="智数,智数平台,采集,爬虫,抓取,数据采集,数据下载,数据抓取,网页爬虫,网页抓取,整站抓取,整站下载,智能抓取,智能爬虫" />
+<meta name="Description"
+	content="智数,智数平台,爬虫,抓取,采集,数据采集,数据下载,数据抓取,新一代智能云采集平台,智能大数据采集平台,新一代云采集平台." />
+
+  
+	<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+    <link href="/assets/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <link href="/assets/css/animate.css" rel="stylesheet">
+    <link href="/assets/css/c/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="loginColumns animated fadeInDown">
+        <div class="row">
+
+            <div class="col-md-6">
+                <h2 class="font-bold">欢迎登陆智慧数字VIP服务平台</h2>
+
+                <p>
+                    	智数VIP服务只针对企业级用户开放
+                </p>
+
+                <p>
+                    	在这里您将享受更加专业的服务
+                </p>
+
+                <p>
+                    	在这里您会拥有专门的一对一的服务支持
+                </p>
+
+                <p>
+                    	在这里您提供的需求将会得到满足
+                </p>
+
+            </div>
+            <div class="col-md-6">
+                <div class="ibox-content">
+                    <form class="m-t" role="form" onSubmit="return false;">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="用户名" id="username" name="username" required="">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="密码" id="password" name="password" required="">
+                        </div>
+                        <button type="button" id="login_btn" class="btn btn-primary block full-width m-b">登陆</button>
+						<!--
+                        <a href="#">
+                            <small>Forgot password?</small>
+                        </a>
+						-->
+                        <p class="text-muted text-center">
+                            <small>还没有账号?</small>
+                        </p>
+                        <a class="btn btn-sm btn-white btn-block" href="register.html">创建账号</a>
+                    </form>
+                   
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+            <div class="col-md-6">
+                Copyright 智慧数字 think-data.cn
+            </div>
+            <div class="col-md-6 text-right">
+               <small>© 2017</small>
+            </div>
+        </div>
+    </div>
+	<script src="/web/res/js/jquery-1.10.2.min.js"></script>
+	<script src="/web/res/js/bootstrap.min.js"></script>
+	<script src='/assets/js/js.cookie.js'></script>
+	<script src='/assets/js/uuid.js'></script>
+	<script src='/assets/js/md5.js'></script>
+	<script src="/assets/plugins/layer/layer.js"></script>
+	<script>
+	$(function() {
+		$('#login_btn').on('click',function() {
+			var username = $("#username").val();
+			var password = $("#password").val();
+
+			if (username == '' || username == null
+					|| username == undefined) {
+				layer.msg("手机号或者邮箱")
+				return false;
+			}
+			if (password == '' || password == null
+					|| password == undefined) {
+				layer.msg("请输入密码")
+				return false;
+			}
+			var pwd = md5(password);
+			$.post("/action/user/u/compLogin", {
+				"username" : username,
+				"password" : pwd,
+
+			}, function(data) {
+				if (data.code == 200) {
+					window.location.href = "/action/my/m/toMyCenter";
+				} else {
+					layer.msg(data.msg);
+				}
+			});
+		});
+	})
+	
+	</script>
+</body>
+
+</html>

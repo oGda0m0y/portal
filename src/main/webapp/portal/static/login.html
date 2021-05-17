@@ -1,0 +1,104 @@
+<form class="form-horizontal"  onSubmit="return false;">
+
+	<div class="login-wrap">
+	
+	<div class="form-group">
+		<label for="username" class="col-sm-4" style="font-size:14px;">手机/邮箱</label> 
+		<div class="col-sm-8">
+			<input type="text" class="form-control" id="login_user_name" placeholder="手机/邮箱" >
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="username" class="col-sm-4" style="font-size:14px;">密码</label> 
+		<div class="col-sm-8">
+			<input type="password" class="form-control" id="login_password" placeholder="密码">
+		</div>
+	</div>
+	<div class="form-group">
+		<button id="login_btn" class="btn btn-lg btn-login btn-block" style="height: 100%;background: #6bc5a4;padding-left: 20px;padding-right: 20px;">
+			<i class="fa fa-check"></i>
+		</button>
+	</div>
+	<div class="form-group">
+		<div class="registration" style="font-size:14px;">
+			还没有账号? <a id="register_btn" href="javascript:void(0)"> 注册 </a>
+		</div>
+	</div>
+		
+
+	
+		<!--  
+				            <label class="checkbox">
+				                <input type="checkbox" value="remember-me"> 记住密码
+				                <span class="pull-right">
+				                    <a data-toggle="modal" href="#myModal"> 忘记密码?</a>
+				
+				                </span>
+				            </label>
+				-->
+	</div>
+
+	<!-- Modal -->
+	<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+		tabindex="-1" id="myModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
+					<h4 class="modal-title">Forgot Password ?</h4>
+				</div>
+				<div class="modal-body">
+					<p>Enter your e-mail address below to reset your password.</p>
+					<input type="text" name="email" placeholder="Email"
+						autocomplete="off" class="form-control placeholder-no-fix">
+
+				</div>
+				<div class="modal-footer">
+					<button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+					<button class="btn btn-primary" type="button">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- modal -->
+
+</form>
+<script>
+$(function(){
+	$('#register_btn').on('click', function() {
+		$("#myLogin").modal('hide');
+		$("#myRegister").modal({
+		    remote: "/portal/static/register.html"
+		});
+		//$("#myRegister").modal('show');
+	});
+}) 
+//登录框
+$('#login_btn').on('click', function() {
+	var username = $("#login_user_name").val();
+	var password = $("#login_password").val();
+	if(username==''||username==null||username==undefined){
+		layer.msg("手机号或者邮箱")
+		return false;
+	}
+	if(password==''||password==null||password==undefined){
+		layer.msg("请输入密码")
+		return false;
+	}
+	var pwd = md5(password);
+	$.post("/action/user/u/login", {
+		"username" : username,
+		"password" : pwd
+	}, function(data) {
+		if (data.code == 200) {
+
+			$("#loginLi").html("<a  href='javascript:void(0);' class='dropdown-toggle' data-toggle='dropdown'  style='font-size:14px;'>"+data.data.user_name+"</a><ul class='dropdown-menu' style='margin-top:-1px;'> <li><a href='/action/my/m/toMyCenter'><i class='fa fa-user'></i>  个人中心</a></li><li><a href='#'><i class='fa fa-user'></i>  退出</a></li>  </ul>");
+			$("#myLogin").modal('hide');
+			$("#myRegister").modal('hide');
+		} else {
+			layer.msg("密码错误");
+		}
+	});
+});
+</script>
