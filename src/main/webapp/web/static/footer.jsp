@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
  <footer class="sticky-footer">
-            2017 &copy;  think-data.cn by <a href="http://www.think-data.cn/" target="_blank">智慧数字</a>
+            2017 &copy;  think-data.cn by <a href="http://data.bds-analytics.com/" target="_blank">慧采集</a>
         </footer>
         
         

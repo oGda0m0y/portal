@@ -20,7 +20,7 @@ $('#registerBtn').on('click', function(){
 	var password = $("#reg_pwd").val();
 	var pwd2 = $("#reg_pwd2").val();
 	var code = $("#rcode").val();
-	var flag=$("#protocol")[0].checked;
+	
 	if(password==''||password==null||password==undefined){
 		layer.msg("请输入密码")
 		return false;
@@ -31,9 +31,6 @@ $('#registerBtn').on('click', function(){
 	}
 	if(password!=pwd2){
 		layer.msg("密码不一致")
-		return false;
-	}if(!flag){
-		layer.msg("请同意注册协议")
 		return false;
 	}
 

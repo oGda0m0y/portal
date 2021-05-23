@@ -38,7 +38,7 @@
                                 <table class="table table-bordered table-striped table-condensed">
                                     <thead>
                                     <tr>
-                                        <th>模板ID</th>
+                                       
                                         <th>模板名称</th>
                                         <th>采集地址</th>
                                         <th>创建时间</th>
@@ -90,7 +90,11 @@
         if (data.length) {
             for (var i = 0; i < data.length; i++) {
                 var contain = data[i];
-                $("#tbody").append("<tr><td>" + (i + 1) + "</td><td>" + contain.template_name + "</td><td>" + contain.url + "</td><td>" + contain.create_time+ "</td><td><a href='/action/portal/rid/" + contain.request_id + "'>查看模板</a></td></tr>");
+             
+                $("#tbody").append("<tr><td>" + contain.template_name + "</td><td>" + contain.url + "</td><td>" + contain.create_time+ "</td><td><a href='/action/portal/rid/" + contain.request_id + "'>查看</a>|<a href='/action/portal/rid/" + contain.request_id + "'>关联链接</a>|<a href='/action/portal/rid/" + contain.request_id + "'>下载</a></td></tr>");
+              
+              
+                
             }
 
         }

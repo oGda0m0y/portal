@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhishu.model.Template;
 import com.zhishu.model.User;
 import com.zhishu.portal.common.result.Page;
 import com.zhishu.portal.common.result.USession;
@@ -38,12 +39,14 @@ public class MyAction extends BaseAction {
 		ModelAndView view = new ModelAndView();
 		try {
 			USession us = this.getUserSession(request);
-			User user = userService.getUserInfo(us.getId());
+			
 
-			List<Record> ts = userService.getJobStatus(us.getId());
-			view.addObject("user", user);
-			view.addObject("ts", ts);
-			view.setViewName("/web/my/my_center.jsp");
+			if (us != null) {
+				List<Template> list = myService.getMyTemplateList(us.getId());
+				String json = this.parseDateJson(list);
+				view.addObject("detailList", json);
+			}
+			view.setViewName("/web/my/snatch/template.jsp?mid=a1&aid=ch12");
 
 		} catch (Exception e) {
 			logger.error("", e);
