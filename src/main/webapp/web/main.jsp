@@ -6,12 +6,12 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="Keywords"
-	content="智数,智数平台,采集,爬虫,抓取,数据采集,数据下载,数据抓取,网页爬虫,网页抓取,整站抓取,整站下载,智能抓取,智能爬虫" />
+	content="慧采集,慧采集平台,采集,爬虫,抓取,数据采集,数据下载,数据抓取,网页爬虫,网页抓取,整站抓取,整站下载,智能抓取,智能爬虫" />
 <meta name="Description"
-	content="智数,智数平台,爬虫,抓取,采集,数据采集,数据下载,数据抓取,新一代智能云采集平台,智能大数据采集平台,新一代云采集平台." />
+	content="慧采集,慧采集平台,爬虫,抓取,采集,数据采集,数据下载,数据抓取,新一代智能云采集平台,智能大数据采集平台,新一代云采集平台." />
     <link rel="shortcut icon" href="#" type="image/png">
 
-    <title>智数-智慧数字</title>
+    <title>慧采集-智能采集</title>
 
     <link href="/web/res/css/style.css" rel="stylesheet">
     <link href="/web/res/css/style-responsive.css" rel="stylesheet">
