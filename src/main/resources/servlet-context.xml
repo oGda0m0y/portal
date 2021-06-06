@@ -11,7 +11,7 @@
 	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 
-	<context:component-scan base-package="com.zhishu.portal.action" />
+	<context:component-scan base-package="com.bds.portal.action" />
 
 	<mvc:default-servlet-handler />
 
@@ -29,7 +29,7 @@
 			<bean
 				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 				<property name="objectMapper">
-					<bean class="com.zhishu.portal.action.JsonObjectMapper"></bean>
+					<bean class="com.bds.portal.action.JsonObjectMapper"></bean>
 				</property>
 			</bean>
 	

@@ -16,10 +16,10 @@
 			</list>
 		</property>
 	</bean>
-	<bean id="springContextHolder" class="com.zhishu.portal.util.SpringContextHolder"
+	<bean id="springContextHolder" class="com.bds.portal.util.SpringContextHolder"
 		lazy-init="false" />
 	<aop:aspectj-autoproxy />
-	<context:component-scan base-package="com.zhishu.portal.*">
+	<context:component-scan base-package="com.bds.portal.*">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
