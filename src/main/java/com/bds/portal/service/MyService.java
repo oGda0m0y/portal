@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.bds.api.IServiceApi;
+import com.aliyun.openservices.ons.api.SendResult;
 import com.bds.model.HeadView;
 import com.bds.model.Result;
 import com.bds.model.TRegin;
@@ -23,15 +23,14 @@ import com.bds.model.TaskPage;
 import com.bds.model.TaskPageParse;
 import com.bds.model.Template;
 import com.bds.portal.common.result.Page;
-import com.bds.portal.queue.HttpMQProducer;
+import com.bds.portal.queue.TcpTaskProducer;
 import com.bds.portal.util.Const;
-import com.caucho.hessian.client.HessianProxyFactory;
 
 @Component
 public class MyService {
 
 	private static Logger logger = Logger.getLogger(MyService.class);
-	private static HessianProxyFactory factory = new HessianProxyFactory();
+
 	@Resource
 	private NutDao mysqlDao;
 
@@ -92,7 +91,7 @@ public class MyService {
 
 		Result ret = new Result();
 		try {
-			IServiceApi apiService = (IServiceApi) factory.create(IServiceApi.class, Const.TASK_API_URL);
+
 			TaskPage job = mysqlDao.fetch(TaskPage.class,
 					Cnd.where("request_id", "=", request_id).and("page", "=", index));
 			if (job == null) {
@@ -101,7 +100,13 @@ public class MyService {
 			}
 
 			mysqlDao.update(TaskPage.class, Chain.make("status", 0), Cnd.where("id", "=", job.getId()));
-			ret = apiService.doJob(job.getPage_url(), job.getId(), job.getJob_id(), user_id);
+			JSONObject msg = new JSONObject();
+			msg.put("url", job.getPage_url());
+			msg.put("id", job.getId());
+			msg.put("requestId", job.getJob_id());
+			msg.put("userId", user_id);
+
+			mysqlDao.clear(TaskPageParse.class, Cnd.where("tid", "=", job.getId()));
 
 			return ret;
 		} catch (Exception e) {
@@ -240,8 +245,8 @@ public class MyService {
 			Template config = mysqlDao.fetch(Template.class, Cnd.where("id", "=", tid));
 
 			String msg = JSON.toJSONString(config);
-			JSONObject send = HttpMQProducer.send(Const.topic, Const.pid, msg, "job");
-			if (send.getString("sendStatus").equals("SEND_OK")) {
+			SendResult send = TcpTaskProducer.getInstance().send(msg);
+			if (send != null && send.getMessageId() != null) {
 				mysqlDao.update(Template.class, Chain.make("job_status", 0), Cnd.where("id", "=", tid));
 				mysqlDao.update(TaskPage.class, Chain.make("status", 0), Cnd.where("tid", "=", tid));
 			} else {

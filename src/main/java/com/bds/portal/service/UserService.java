@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bds.api.IServiceApi;
 import com.bds.model.MyAccount;
 import com.bds.model.Result;
 import com.bds.model.TRegin;
@@ -35,16 +34,18 @@ import com.caucho.hessian.client.HessianProxyFactory;
 public class UserService {
 
 	private static Logger logger = Logger.getLogger(UserService.class);
-	private static HessianProxyFactory factory = new HessianProxyFactory();
+
 	@Resource
 	private NutDao mysqlDao;
+	@Resource
+	private BalanceService balanceService;
 
 	@Transactional(propagation = Propagation.REQUIRED, noRollbackFor = Exception.class)
 	public Result regUser(User user) {
 
 		Result ret = new Result();
 		try {
-			IServiceApi apiService = (IServiceApi) factory.create(IServiceApi.class, Const.TASK_API_URL);
+
 			if (CheckUtil.checkEmail(user.getUser_name())) {
 				user.setEmail(user.getEmail());
 			}
@@ -76,7 +77,7 @@ public class UserService {
 
 					cal.set(Calendar.DAY_OF_MONTH, 30);
 					Date endDate = cal.getTime();
-					ret = apiService.addBalance(user.getId(), 1000d, 0, endDate, null, null, null, null);
+					ret = balanceService.addBalance(user.getId(), 1000d, 0, endDate, null, null, null, null);
 					if (!ret.getCode().equals(200)) {
 						throw new Exception("充值异常");
 					}

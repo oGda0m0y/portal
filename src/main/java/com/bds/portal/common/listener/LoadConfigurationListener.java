@@ -38,9 +38,7 @@ public class LoadConfigurationListener implements ServletContextListener {
 
             Const.Host_Ip = config.getString("host.ip");
             Const.Host_Port = config.getInt("host.port");
-            Const.TASK_API_URL = config.getString("task_api.url");
-            Const.USER_API_URL = config.getString("user_api.url");
-            Const.TEMPLATE_API_URL = config.getString("template_api.url");
+           
         	Const.REDIS_HOST = config.getString("redis.host");
 			Const.REDIS_PORT = config.getInt("redis.port");
 			Const.REDIS_PWD = config.getString("redis.pwd");

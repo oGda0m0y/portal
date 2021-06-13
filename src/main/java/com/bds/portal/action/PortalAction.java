@@ -57,7 +57,7 @@ public class PortalAction {
 			String requestId = MD5Util.getMD5(uuid + url + now);
 
 			Result ret = portalService.addTask(requestId, url, uuid, "");
-			if (ret.isRet()) {
+			if (ret.getCode().equals(200)) {
 
 				view.addObject("uuid", uuid);// 参数传给前端
 				view.addObject("requestId", requestId);

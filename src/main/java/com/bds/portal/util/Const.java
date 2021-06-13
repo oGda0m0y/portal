@@ -21,12 +21,10 @@ public class Const {
 	public static int FAIL = 999;
 	public static int SUC = 200;
 
-	public static String TASK_API_URL;
-	public static String USER_API_URL;
-	public static String TEMPLATE_API_URL;
 
-	public static String topic = "zs-task";
-	public static String pid = "zs-task";
+
+	public static String topic = "bds-task";
+	public static String pid = "PID_BDS_TASK";
 	public static String THINKDATA_ID = "__thinkdata_id";
 	public static String TYPE_LIST = "list";
 	public static String TYPE_ELE = "element";

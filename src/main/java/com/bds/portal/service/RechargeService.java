@@ -1,6 +1,5 @@
 package com.bds.portal.service;
 
-import java.net.MalformedURLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -21,13 +20,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bds.api.IServiceApi;
 import com.bds.model.Order;
 import com.bds.model.Result;
 import com.bds.model.Transaction;
 import com.bds.portal.common.result.Page;
 import com.bds.portal.util.Const;
-import com.caucho.hessian.client.HessianProxyFactory;
 
 /**
  * 充值消费记录
@@ -39,9 +36,11 @@ import com.caucho.hessian.client.HessianProxyFactory;
 public class RechargeService {
 
 	private static Logger logger = Logger.getLogger(RechargeService.class);
-	private static HessianProxyFactory factory = new HessianProxyFactory();
+
 	@Resource
 	private NutDao mysqlDao;
+	@Resource
+	private BalanceService balanceService;
 
 	/**
 	 * 
@@ -120,15 +119,9 @@ public class RechargeService {
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Result trade(String order_no, String trade_no, String trade_status, String trade_type) {
-		IServiceApi apiService;
+
 		Result r = new Result();
-		try {
-			apiService = (IServiceApi) factory.create(IServiceApi.class, Const.TASK_API_URL);
-		} catch (MalformedURLException e1) {
-			logger.error("", e1);
-			r.setResult(Const.FAIL_400, "获取支付接口异常");
-			return r;
-		}
+
 		if (trade_status.equals("TRADE_SUCCESS")) {
 			// 支付成功
 			mysqlDao.update(Order.class,
@@ -152,8 +145,8 @@ public class RechargeService {
 				t.setUser_id(order.getUser_id());
 				t.setTrade_no(order.getTrade_no());
 				mysqlDao.insert(t);
-				apiService.addBalance(order.getUser_id(), order.getAmount(), order.getType(), validity_time, t.getId(),
-						order.getId(), order_no, order.getBody());
+				balanceService.addBalance(order.getUser_id(), order.getAmount(), order.getType(), validity_time,
+						t.getId(), order.getId(), order_no, order.getBody());
 			} catch (Exception e) {
 				logger.error("", e);
 				r.setResult(Const.FAIL_500, "支付操作异常");
